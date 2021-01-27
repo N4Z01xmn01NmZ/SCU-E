@@ -9,14 +9,13 @@
 
 #include "ClientHandling.h"
 #include "HTMLResponses.h"
-#include "ESP32_Servo.h"
 
 
-const char *ssid = "SSID";
-const char *pass = "PASS";
+const char *ssid = "Julian";
+const char *pass = "18192021";
 
-const unsigned char servo_pin = 18; 
-Servo myservo;
+const unsigned char servo_pin = 18;
+const unsigned char servo_channel = 0;
 
 String table_state = "lowered";
 
@@ -29,7 +28,15 @@ void setup()
 {
   Serial.begin(115200);
 
-  myservo.attach(servo_pin, 1000, 2000);
+  ESP32PWM::allocateTimer(0);
+	ESP32PWM::allocateTimer(1);
+	ESP32PWM::allocateTimer(2);
+	ESP32PWM::allocateTimer(3);
+
+  ledcAttachPin(servo_pin, servo_channel);
+  ledcSetup(servo_channel, 50, 8);
+  ledcWriteTone();
+  ledcWrite(servo_pin, )
 
   Serial.printf("\n\nConnecting to: %s\n", ssid);
   WiFi.begin(ssid, pass);
@@ -54,7 +61,7 @@ void loop()
   WiFiClient client = server.available();
   if (client)
   {
-    ClientHandling *client_handler = new ClientHandling(client, INDEX_HTML, table_state, myservo);
+    ClientHandling *client_handler = new ClientHandling(client, INDEX_HTML, table_state);
     //Loop while connected to client
     client_handler->HandleRequest();
     //Closing the connection.

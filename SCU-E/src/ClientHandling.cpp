@@ -50,9 +50,13 @@ void ClientHandling::HandleRequest()
                         {
                             Serial.printf("State: %s\n", m_table_state);
                             Serial.println("Raising");
-                            m_servo.write(180);
+                            for(int i = 0; i < 256; i++)
+                            {
+                                ledcWrite(servo_pin, i);
+                            }
                             delay(400);
                             m_table_state = "raised";
+                            Serial.printf("State: %s\n", m_table_state);
                         }
                     }
                     if (m_header.indexOf("GET /lower") >= 0)
@@ -61,9 +65,13 @@ void ClientHandling::HandleRequest()
                         {
                             Serial.printf("State: %s\n", m_table_state);
                             Serial.println("Lowering");
-                            m_servo.write(0);
+                            for(int i = 256; i > 1; i--)
+                            {
+                                ledcWrite(servo_pin, i);
+                            }
                             delay(400);
                             m_table_state = "lowered";
+                            Serial.printf("State: %s\n", m_table_state);
                         }
                     }
 

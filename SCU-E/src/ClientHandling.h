@@ -3,8 +3,6 @@
 #include <Arduino.h>
 #include <WiFi.h>
 
-#include "ESP32_Servo.h"
-
 class ClientHandling
 {
     //typedef enum
@@ -18,11 +16,10 @@ private:
     const char *m_html_code;
 
     String m_table_state;
-    Servo m_servo;
 
     const int m_timeout;
 public:
-    ClientHandling(WiFiClient &client, const char *html_code, String &state, Servo &servo, int timeout = 15);
+    ClientHandling(WiFiClient &client, const char *html_code, String &state, int timeout = 15);
     ~ClientHandling();
 
     void HandleRequest();
