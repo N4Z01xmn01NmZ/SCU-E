@@ -3,11 +3,15 @@
 /**
  * ClientHandling class constructor
  * @param client Reference to existing client object
+ * @param html_code Reference to existing HTML code
+ * @param state Reference to table state variable
+ * @param servo Reference to existing servo object
+ * @param timeout Web server refresh timeout
 */
-ClientHandling::ClientHandling(WiFiClient *client, const char *html_code, String &state, int timeout)
-    : m_client(client), m_html_code(html_code), m_table_state(state), m_timeout(timeout)
+ClientHandling::ClientHandling(WiFiClient &client, const char *html_code, String &state, Servo &servo, int timeout)
+    : m_client(client), m_html_code(html_code), m_table_state(state), m_servo(servo), m_timeout(timeout)
 {
-    Serial.println("New m_client->");
+    Serial.println("New client");
 }
 
 /**
@@ -15,7 +19,7 @@ ClientHandling::ClientHandling(WiFiClient *client, const char *html_code, String
 */
 ClientHandling::~ClientHandling()
 {
-    m_client->stop();
+    m_client.stop();
     Serial.println("Client disconnected.");
     Serial.println();
 }
@@ -25,13 +29,13 @@ ClientHandling::~ClientHandling()
 */
 void ClientHandling::HandleRequest()
 {
-    while (m_client->connected())
+    while (m_client.connected())
     {
         //If recieved incoming bytes from client
-        if (m_client->available())
+        if (m_client.available())
         {
             //Read a byte
-            char c = m_client->read();
+            char c = m_client.read();
             Serial.write(c);
             m_header += c;
             if (c == '\n')
@@ -42,25 +46,31 @@ void ClientHandling::HandleRequest()
                     HeaderResponse();
                     if (m_header.indexOf("GET /raise") >= 0)
                     {
-                        if(m_table_state != "raised")
+                        if (m_table_state != "raised")
                         {
-                            ledcWrite(0, 250);
-                            delay(200);
+                            Serial.printf("State: %s\n", m_table_state);
+                            Serial.println("Raising");
+                            m_servo.write(180);
+                            delay(400);
+                            m_table_state = "raised";
                         }
                     }
                     if (m_header.indexOf("GET /lower") >= 0)
                     {
-                        if(m_table_state != "lowered")
+                        if (m_table_state != "lowered")
                         {
-                            ledcWrite(0, 2);
-                            delay(200);
+                            Serial.printf("State: %s\n", m_table_state);
+                            Serial.println("Lowering");
+                            m_servo.write(0);
+                            delay(400);
+                            m_table_state = "lowered";
                         }
                     }
-                    
-                        //The content of the HTTP response as follows.
-                        WebPageResponse();
+
+                    //The content of the HTTP response as follows.
+                    WebPageResponse();
                     //Ends HTTP response with a newline character.
-                    m_client->println();
+                    m_client.println();
                     //Exiting while loop.
                     break;
                 }
@@ -86,16 +96,16 @@ void ClientHandling::HandleRequest()
 */
 void ClientHandling::HeaderResponse()
 {
-    m_client->println("HTTP/1.1 200 OK");
-    m_client->printf("Keep-Alive: timeout=%d, max=100\n", m_timeout);
-    m_client->println("Connection: Keep-Alive");
-    m_client->println("Content-type:text/html");
-    m_client->println();
+    m_client.println("HTTP/1.1 200 OK");
+    m_client.printf("Keep-Alive: timeout=%d, max=100\n", m_timeout);
+    m_client.println("Connection: Keep-Alive");
+    m_client.println("Content-type:text/html");
+    m_client.println();
 }
 
 void ClientHandling::WebPageResponse()
 {
-    m_client->print(m_html_code);
+    m_client.print(m_html_code);
 }
 
 void ClientHandling::Clearheader()
