@@ -38,7 +38,7 @@
             color: cyan;
         }
 
-        .logo > img {
+        .logo>img {
             position: relative;
             top: 27px;
             height: 75px;
@@ -65,11 +65,11 @@
             display: table-cell;
         }
 
-        .left > img {
+        .left>img {
             width: 15vw;
         }
 
-        .right { 
+        .right {
             display: table-cell;
             vertical-align: middle;
             background-color: cyan;
@@ -89,7 +89,7 @@
             display: table-cell;
         }
 
-        .control > img {
+        .control>img {
             width: 70vw;
         }
 
@@ -130,7 +130,7 @@
             text-align: center;
         }
 
-        @media screen and (max-width: 800px){
+        @media screen and (max-width: 800px) {
             #smartclassutil {
                 display: none;
             }
@@ -141,7 +141,8 @@
 <body>
     <div class="scue-container top">
         <a class="scue-container logo" href="https://ja.wikipedia.org/wiki/%E6%9C%BA">
-            <img src="https://cdn.discordapp.com/attachments/763411791422029836/799550267683110952/HH.png" alt="scuelogo">
+            <img src="https://cdn.discordapp.com/attachments/763411791422029836/799550267683110952/HH.png"
+                alt="scuelogo">
             SCU
             <span id="dashe" style="color: cyan;">-E</span>
         </a>
@@ -149,22 +150,20 @@
     </div>
     <div class="scue-container main">
         <div class="scue-sidebar left">
-                <img src="https://cdn.discordapp.com/attachments/763411791422029836/801119106250178560/Untitled-2.jpg" alt="baselogo">
+            <img src="https://cdn.discordapp.com/attachments/763411791422029836/801119106250178560/Untitled-2.jpg"
+                alt="baselogo">
         </div>
         <div class="control">
-            <img src="https://cdn.discordapp.com/attachments/763411791422029836/800725330267865098/unknown.png" alt="botanbg">
-                <button class="botan raise" onclick="buttonclick()">RAISE</button>
-                <button class="botan lower" onclick="buttonclick()">LOWER</button>
+            <img src="https://cdn.discordapp.com/attachments/763411791422029836/800725330267865098/unknown.png"
+                alt="botanbg">
+            <a href="/raise" style="text-decoration: none;"><button class="botan raise" >RAISE</button></a>
+            <a href="/lower" style="text-decoration: none;"><button class="botan lower" href="/lower">LOWER</button></a>
         </div>
-        <div class="scue-sidebar right"><div id="kelima">KELOMPOK V</div></div>
+        <div class="scue-sidebar right">
+            <div id="kelima">KELOMPOK V</div>
+        </div>
     </div>
     <div class="footer">DA foot</div>
-
-    <script language = "JavaScript">
-        function buttonclick(params) {
-            
-        }
-    </script>
 </body>
 
 </html>

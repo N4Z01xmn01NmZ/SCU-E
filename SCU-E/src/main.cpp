@@ -12,11 +12,18 @@
 
 #include "ClientHandling.h"
 #include "HTMLResponses.h"
+#include "ServoKonti.h"
 
 const char *ssid = "Julian";
 const char *pass = "18192021";
 
+const unsigned char servo_pin = 18;
+const unsigned char servo_channel = 0;
+
+String table_state = "lowered";
+
 WiFiServer server(80);
+ServoKonti servo(servo_pin, servo_channel, 50, 8);
 
 /**
  * The setup function, run only once.
@@ -24,6 +31,9 @@ WiFiServer server(80);
 void setup()
 {
   Serial.begin(115200);
+
+  ledcAttachPin(servo_pin, servo_channel);
+  ledcSetup(servo_channel, 50, 8);
 
   Serial.printf("\n\nConnecting to: %s\n", ssid);
   WiFi.begin(ssid, pass);

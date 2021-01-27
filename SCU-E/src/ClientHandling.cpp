@@ -4,8 +4,8 @@
  * ClientHandling class constructor
  * @param client Reference to existing client object
 */
-ClientHandling::ClientHandling(WiFiClient *client, const char *html_code, int timeout)
-    : m_client(client), m_html_code(html_code), m_timeout(timeout)
+ClientHandling::ClientHandling(WiFiClient *client, const char *html_code, String &state, int timeout)
+    : m_client(client), m_html_code(html_code), m_table_state(state), m_timeout(timeout)
 {
     Serial.println("New m_client->");
 }
@@ -33,14 +33,32 @@ void ClientHandling::HandleRequest()
             //Read a byte
             char c = m_client->read();
             Serial.write(c);
+            m_header += c;
             if (c == '\n')
             {
                 //If the current line is blank, it marks the end of the client HTTP request because it had recieved two newline characters in a row, so send a response
                 if (m_current_line.length() == 0)
                 {
                     HeaderResponse();
-                    //The content of the HTTP response as follows.
-                    WebPageResponse();
+                    if (m_header.indexOf("GET /raise") >= 0)
+                    {
+                        if(m_table_state != "raised")
+                        {
+                            ledcWrite(0, 250);
+                            delay(200);
+                        }
+                    }
+                    if (m_header.indexOf("GET /lower") >= 0)
+                    {
+                        if(m_table_state != "lowered")
+                        {
+                            ledcWrite(0, 2);
+                            delay(200);
+                        }
+                    }
+                    
+                        //The content of the HTTP response as follows.
+                        WebPageResponse();
                     //Ends HTTP response with a newline character.
                     m_client->println();
                     //Exiting while loop.
@@ -78,4 +96,9 @@ void ClientHandling::HeaderResponse()
 void ClientHandling::WebPageResponse()
 {
     m_client->print(m_html_code);
+}
+
+void ClientHandling::Clearheader()
+{
+    m_header = "";
 }
