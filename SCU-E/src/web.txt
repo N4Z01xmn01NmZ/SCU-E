@@ -1,0 +1,143 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Classroom Utility Web Server</title>
+    <meta name="author" content="Kelompok V">
+    <link rel="icon" href="https://cdn.discordapp.com/attachments/763411791422029836/799550267683110952/HH.png">
+    <style>
+        body {
+            background: rgb(56, 56, 56);
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 15px;
+            line-height: 1.5;
+            margin: 0px;
+        }
+        .top {
+            background-color: white;
+            color: black;
+            height: 80px;
+            padding: 20px 16px 0px 16px;
+        }
+        .logo {
+            position: absolute;
+            top: -5px;
+            display: inline-block;
+            margin-right: auto;
+            color: darkgrey;
+            font-size: 37px;
+            font-weight: 700;
+            text-decoration-line: none;
+        }
+        .logo:hover {
+            color: cyan;
+        }
+        .logo > img {
+            position: relative;
+            top: 27px;
+            height: 75px;
+        }
+        #smartclassutil {
+            position: absolute;
+            display: inline-block;
+            top: 35px;
+            right: 0px;
+            font-size: 30px;
+            margin-right: 0px;
+        }
+        .main {
+            display: table;
+            background-color: white;
+            width: 100%;
+            margin-top: 30px;
+            color: black;
+        }
+        .left {
+            display: table-cell;
+        }
+        .left > img {
+            width: 15vw;
+        }
+        .right { 
+            display: table-cell;
+            vertical-align: middle;
+            background-color: cyan;
+            width: 10vw;
+            white-space: nowrap;
+            font-size: 5vw;
+            font-weight: 500;
+        }
+        #kelima {
+            display: inline-block;
+            writing-mode: vertical-rl;
+            text-orientation: upright;
+        }
+        .control {
+            display: table-cell;
+        }
+        .control > img {
+            width: 70vw;
+        }
+        .control .botan {
+            position: relative;
+            top: -34vw;
+            left: 34.5vw;
+            transform: translate(-50%, -50%);
+            display: block;
+            background-color: lightgreen;
+            width: 30vw;
+            height: auto;
+            color: white;
+            font-size: 4vw;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .control .lower {
+            margin-top: 2vw;
+        }
+        .control .botan:hover {
+            background-color: tomato;
+            cursor: grab;
+        }
+        .control .botan:active {
+            background-color: violet;
+            cursor: grabbing;
+        }
+
+        .footer {
+            background-color: black;
+            color: gray;
+            font-size: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+        @media screen and (max-width: 800px){
+            #smartclassutil {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="scue-container top">
+        <a class="scue-container logo" href="https://ja.wikipedia.org/wiki/%E6%9C%BA">
+            <img src="https://cdn.discordapp.com/attachments/763411791422029836/799550267683110952/HH.png" alt="scuelogo">
+            SCU
+            <span id="dashe" style="color: cyan;">-E</span>
+        </a>
+        <div id="smartclassutil">SMART CLASSROOM UTILITY WEB SERVER</div>
+    </div>
+    <div class="scue-container main">
+        <div class="scue-sidebar left">
+                <img src="https://cdn.discordapp.com/attachments/763411791422029836/801119106250178560/Untitled-2.jpg" alt="baselogo">
+        </div>
+        <div class="control">
+            <img src="https://cdn.discordapp.com/attachments/763411791422029836/800725330267865098/unknown.png" alt="botanbg">
+                <button class="botan raise" onclick="buttonclick()">RAISE</button>
+                <button class="botan lower" onclick="buttonclick()">LOWER</button>
+        </div>
+        <div class="scue-sidebar right"><div id="kelima">KELOMPOK V</div></div>
+    </div>
+    <div class="footer">DA foot</div>
+</body>
+</html>
