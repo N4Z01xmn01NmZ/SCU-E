@@ -11,8 +11,8 @@
 #include "HTMLResponses.h"
 
 
-const char *ssid = "Julian";
-const char *pass = "18192021";
+const char *ssid = "SSID";
+const char *pass = "PASS";
 
 const unsigned char servo_pin = 18;
 const unsigned char servo_channel = 0;
