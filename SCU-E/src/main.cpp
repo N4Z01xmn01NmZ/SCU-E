@@ -24,19 +24,13 @@ WiFiServer server(80);
 /**
  * The setup function, run only once.
 */
+
 void setup()
 {
   Serial.begin(115200);
 
-  ESP32PWM::allocateTimer(0);
-	ESP32PWM::allocateTimer(1);
-	ESP32PWM::allocateTimer(2);
-	ESP32PWM::allocateTimer(3);
-
   ledcAttachPin(servo_pin, servo_channel);
   ledcSetup(servo_channel, 50, 8);
-  ledcWriteTone();
-  ledcWrite(servo_pin, )
 
   Serial.printf("\n\nConnecting to: %s\n", ssid);
   WiFi.begin(ssid, pass);
@@ -50,6 +44,7 @@ void setup()
   Serial.print("IP address: ");
   Serial.println(WiFi.localIP());
   server.begin();
+  Serial.
 }
 
 /**
@@ -61,7 +56,7 @@ void loop()
   WiFiClient client = server.available();
   if (client)
   {
-    ClientHandling *client_handler = new ClientHandling(client, INDEX_HTML, table_state);
+    ClientHandling *client_handler = new ClientHandling(client, INDEX_HTML, table_state, servo_pin);
     //Loop while connected to client
     client_handler->HandleRequest();
     //Closing the connection.

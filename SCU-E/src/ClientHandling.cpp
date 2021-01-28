@@ -8,8 +8,8 @@
  * @param servo Reference to existing servo object
  * @param timeout Web server refresh timeout
 */
-ClientHandling::ClientHandling(WiFiClient &client, const char *html_code, String &state, Servo &servo, int timeout)
-    : m_client(client), m_html_code(html_code), m_table_state(state), m_servo(servo), m_timeout(timeout)
+ClientHandling::ClientHandling(WiFiClient &client, const char *html_code, String &state, unsigned char servo_pin, int timeout)
+    : m_client(client), m_html_code(html_code), m_table_state(state), m_servo_pin(servo_pin), m_timeout(timeout)
 {
     Serial.println("New client");
 }
@@ -52,7 +52,7 @@ void ClientHandling::HandleRequest()
                             Serial.println("Raising");
                             for(int i = 0; i < 256; i++)
                             {
-                                ledcWrite(servo_pin, i);
+                                ledcWrite(m_servo_pin, i);
                             }
                             delay(400);
                             m_table_state = "raised";
@@ -67,7 +67,7 @@ void ClientHandling::HandleRequest()
                             Serial.println("Lowering");
                             for(int i = 256; i > 1; i--)
                             {
-                                ledcWrite(servo_pin, i);
+                                ledcWrite(m_servo_pin, i);
                             }
                             delay(400);
                             m_table_state = "lowered";

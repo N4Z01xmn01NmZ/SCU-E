@@ -17,9 +17,10 @@ private:
 
     String m_table_state;
 
+    const unsigned char m_servo_pin;
     const int m_timeout;
 public:
-    ClientHandling(WiFiClient &client, const char *html_code, String &state, int timeout = 15);
+    ClientHandling(WiFiClient &client, const char *html_code, String &state, unsigned char servo_pin, int timeout = 15);
     ~ClientHandling();
 
     void HandleRequest();
