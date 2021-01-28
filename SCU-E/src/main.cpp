@@ -44,7 +44,6 @@ void setup()
   Serial.print("IP address: ");
   Serial.println(WiFi.localIP());
   server.begin();
-  Serial.
 }
 
 /**
