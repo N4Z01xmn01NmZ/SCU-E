@@ -10,12 +10,13 @@
 #include "ClientHandling.h"
 #include "HTMLResponses.h"
 
-
 const char *ssid = "SSID";
 const char *pass = "PASS";
 
 const unsigned char servo_pin = 18;
 const unsigned char servo_channel = 0;
+const double pwm_frequency = 50; // in hertz
+const unsigned char bit_resolution = 8;
 
 String table_state = "lowered";
 
@@ -24,7 +25,6 @@ WiFiServer server(80);
 /**
  * The setup function, run only once.
 */
-
 void setup()
 {
   Serial.begin(115200);
